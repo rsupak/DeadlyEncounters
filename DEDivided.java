@@ -364,15 +364,15 @@ public class DEDivided {
                   xP += exp;
                   System.out.println("Total XP is " + xP);
                   turnCount = 1;
-                  if(xP >= 50) {
-                    System.out.println("Congratulations! " + playerName + " has leveled up!");
+                  while(xP >= 50) {
+                      System.out.println("Congratulations! " + playerName + " has leveled up!");
 
-                    playerHealth += baseHP + (10 + (int)(Math.random() * 10));
-                    playerMagic +=  baseMP + (10 + (int)(Math.random() * 10));
-                    attackPower += baseATT + (10 + (int)(Math.random() * 10));
-                    defensePower += baseDEF + (10 + (int)(Math.random() * 10));
-                    xP = 0;
-                    System.out.println(playerName + "\nHP: " + playerHealth + "\nMP: " + playerMagic + "\nATT: " + attackPower + "\nDEF: " + defensePower);
+                      playerHealth += baseHP + (10 + (int)(Math.random() * 10));
+                      playerMagic +=  baseMP + (10 + (int)(Math.random() * 10));
+                      attackPower += baseATT + (10 + (int)(Math.random() * 10));
+                      defensePower += baseDEF + (10 + (int)(Math.random() * 10));
+                      xP -= 50;
+                      System.out.println(playerName + "\nHP: " + playerHealth + "\nMP: " + playerMagic + "\nATT: " + attackPower + "\nDEF: " + defensePower);
                   }
                 }
                 if(playerHealth <= 0) {
