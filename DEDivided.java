@@ -17,10 +17,14 @@ public class DEDivided {
     player.setMP();
     player.setAttkPow();
     player.setDefPow();
-    int playerHealth = player.getHP();
-    int playerMagic = player.getMP();
-    int attackPower = player.getAttkPow();
-    int defensePower = player.getDefPow();
+    int baseHP = player.getHP();
+    int baseMP = player.getMP();
+    int baseATT = player.getAttkPow();
+    int baseDEF = player.getDefPow();
+    int playerHealth = baseHP;
+    int playerMagic = baseMP;
+    int attackPower = baseATT;
+    int defensePower = baseDEF;
     int xP = 0;
 
     //enemy numbers
@@ -202,7 +206,7 @@ public class DEDivided {
                             System.out.println("You are casting a spell!");
 
                             //magic selection
-                            System.out.println("Choose a magic to use: \n(1: Arrow)\n(2: Fireball)\n(3: Sleep)\n(4: Cure)\n>>");
+                            System.out.print("Choose a magic to use: \n(1: Arrow)\n(2: Fireball)\n(3: Sleep)\n(4: Cure)\n>>");
                             magic = keyboard.nextInt();
                             if(magic == 1 && playerMagic >= 2) {
                               enemyHealth -= 2;
@@ -215,18 +219,18 @@ public class DEDivided {
                             } else if(magic == 3 && playerMagic >= 3) {
                               int sleepCheck = (1 + (int)(Math.random() * 10));
                               if(sleepCheck >= 7) {
-                                System.out.println("Enemy is asleep");
-                                sleepCount = 2;
+                                sleepCount = (int)(1 + Math.random() * 5);
+                                System.out.println("Enemy is asleep for " + sleepCount + " turns!");
                               } else if(sleepCheck == 5 || sleepCheck == 6){
-                                System.out.println("Enemy is dazed");
-                                sleepCount = 1;
+                                sleepCount = 2;
+                                System.out.println("Enemy is dazed for " + sleepCount + " turns.");
                               } else {
                                 System.out.println("Spell ineffective!");
                                 sleepCount = 0;
                               }
                               playerMagic -= 3;
                             } else if(magic == 4 && playerMagic >= 4){
-                              System.out.println(playerName + "casts Cure!");
+                              System.out.println(playerName + " casts Cure!");
                               playerHealth += cure;
                               System.out.println("Current HP: " + playerHealth);
                               playerMagic -= 4;
@@ -360,9 +364,18 @@ public class DEDivided {
                   xP += exp;
                   System.out.println("Total XP is " + xP);
                   turnCount = 1;
+                  if(xP >= 50) {
+                    System.out.println("Congratulations! " + playerName + " has leveled up!");
+
+                    playerHealth += baseHP + (10 + (int)(Math.random() * 10));
+                    playerMagic +=  baseMP + (10 + (int)(Math.random() * 10));
+                    attackPower += baseATT + (10 + (int)(Math.random() * 10));
+                    defensePower += baseDEF + (10 + (int)(Math.random() * 10));
+                    xP = 0;
+                    System.out.println(playerName + "\nHP: " + playerHealth + "\nMP: " + playerMagic + "\nATT: " + attackPower + "\nDEF: " + defensePower);
+                  }
                 }
                 if(playerHealth <= 0) {
-                  System.out.println(playerName + " has perished...may his shade find the peace he never found in life.");
                   gameRunning = false;
                   traveling = false;
                 }
