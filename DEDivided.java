@@ -1,12 +1,15 @@
 //Filename DeadlyEncounters.java modified to work with multiple subs
 //Written by Richard Supak
 //Written on 19October2017
-
+import javax.swing.JFrame;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import java.util.*;
 
 public class DEDivided {
   public static void main(String[] args) {
     Scanner keyboard = new Scanner(System.in);
+      JFrame frame = new JFrame();
 
     //Sprites
     PlayerSprite player = new PlayerSprite();
@@ -17,14 +20,10 @@ public class DEDivided {
     player.setMP();
     player.setAttkPow();
     player.setDefPow();
-    int baseHP = player.getHP();
-    int baseMP = player.getMP();
-    int baseATT = player.getAttkPow();
-    int baseDEF = player.getDefPow();
-    int playerHealth = baseHP;
-    int playerMagic = baseMP;
-    int attackPower = baseATT;
-    int defensePower = baseDEF;
+    int playerHealth = player.getHP();
+    int playerMagic = player.getMP();
+    int attackPower = player.getAttkPow();
+    int defensePower = player.getDefPow();
     int xP = 0;
 
     //enemy numbers
@@ -206,7 +205,7 @@ public class DEDivided {
                             System.out.println("You are casting a spell!");
 
                             //magic selection
-                            System.out.print("Choose a magic to use: \n(1: Arrow)\n(2: Fireball)\n(3: Sleep)\n(4: Cure)\n>>");
+                            System.out.println("Choose a magic to use: \n(1: Arrow)\n(2: Fireball)\n(3: Sleep)\n(4: Cure)\n>>");
                             magic = keyboard.nextInt();
                             if(magic == 1 && playerMagic >= 2) {
                               enemyHealth -= 2;
@@ -219,18 +218,18 @@ public class DEDivided {
                             } else if(magic == 3 && playerMagic >= 3) {
                               int sleepCheck = (1 + (int)(Math.random() * 10));
                               if(sleepCheck >= 7) {
-                                sleepCount = (int)(1 + Math.random() * 5);
-                                System.out.println("Enemy is asleep for " + sleepCount + " turns!");
-                              } else if(sleepCheck == 5 || sleepCheck == 6){
+                                System.out.println("Enemy is asleep");
                                 sleepCount = 2;
-                                System.out.println("Enemy is dazed for " + sleepCount + " turns.");
+                              } else if(sleepCheck == 5 || sleepCheck == 6){
+                                System.out.println("Enemy is dazed");
+                                sleepCount = 1;
                               } else {
                                 System.out.println("Spell ineffective!");
                                 sleepCount = 0;
                               }
                               playerMagic -= 3;
                             } else if(magic == 4 && playerMagic >= 4){
-                              System.out.println(playerName + " casts Cure!");
+                              System.out.println(playerName + "casts Cure!");
                               playerHealth += cure;
                               System.out.println("Current HP: " + playerHealth);
                               playerMagic -= 4;
@@ -364,26 +363,33 @@ public class DEDivided {
                   xP += exp;
                   System.out.println("Total XP is " + xP);
                   turnCount = 1;
-                  while(xP >= 50) {
-                      System.out.println("Congratulations! " + playerName + " has leveled up!");
-
-                      playerHealth += baseHP + (10 + (int)(Math.random() * 10));
-                      playerMagic +=  baseMP + (10 + (int)(Math.random() * 10));
-                      attackPower += baseATT + (10 + (int)(Math.random() * 10));
-                      defensePower += baseDEF + (10 + (int)(Math.random() * 10));
-                      xP -= 50;
-                      System.out.println(playerName + "\nHP: " + playerHealth + "\nMP: " + playerMagic + "\nATT: " + attackPower + "\nDEF: " + defensePower);
-                  }
                 }
                 if(playerHealth <= 0) {
+                  System.out.println(playerName + " has perished...may his shade find the peace he never found in life.");
                   gameRunning = false;
                   traveling = false;
                 }
                 break;
               case "a Locked Door":
+
+              ImageIcon door = new ImageIcon("door.jpg");
+              JLabel label = new JLabel(door);
+              frame.add(label);
+              frame.setDefaultCloseOperation
+                    (JFrame.DISPOSE_ON_CLOSE);
+              frame.pack();
+              frame.setVisible(true);
                 System.out.println("Locked Door");
-                break;
+              break;
               case "a Chest":
+              ImageIcon chest = new ImageIcon("chest.jpg");
+              JLabel chest1 = new JLabel(chest);
+              frame.add(chest1);
+              frame.setDefaultCloseOperation
+                  (JFrame.DISPOSE_ON_CLOSE);
+              frame.pack();
+              frame.setVisible(true);
+                System.out.println("Locked Door");
                 System.out.println("You've encountered " + eventName);
                 System.out.println("The chest has a numerical lock attached to the front.\nGuess the correct number and the treasure is yours.");
                 treasure = (1 + (int)(Math.random() * 2));
@@ -419,6 +425,13 @@ public class DEDivided {
                 }
                 break;
               case "a Trap":
+              ImageIcon trap = new ImageIcon("trap.jpg");
+              JLabel trap1 = new JLabel(trap);
+              frame.add(trap1);
+              frame.setDefaultCloseOperation
+                   (JFrame.DISPOSE_ON_CLOSE);
+              frame.pack();
+              frame.setVisible(true);
                 System.out.println("You've run into a TRAP!\nYou take 5 points of damage.");
                 playerHealth -= 5;
                 System.out.println("Player HP: " + playerHealth);
@@ -429,6 +442,13 @@ public class DEDivided {
                 }
                 break;
               case "no Encounter":
+              ImageIcon path = new ImageIcon("path.jpg");
+              JLabel path1 = new JLabel(path);
+              frame.add(path1);
+             frame.setDefaultCloseOperation
+                     (JFrame.DISPOSE_ON_CLOSE);
+              frame.pack();
+              frame.setVisible(true);
                 System.out.println("The darkness feels like it is closing in around you.\nEven the crickets have grown quiet.\nYou do not feel safe enough to rest for the night.\nYou decide to keep moving.");
                 break;
             }
