@@ -18,10 +18,7 @@ public class DEDivided {
     EnemySprite enemy = new EnemySprite();
 
     //player numbers
-    player.setHP();
-    player.setMP();
-    player.setAttkPow();
-    player.setDefPow();
+    player.Player();
     int baseHP = player.getHP();
     int baseMP = player.getMP();
     int baseATT = player.getAttkPow();
