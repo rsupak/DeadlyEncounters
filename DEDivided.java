@@ -66,7 +66,8 @@ public class DEDivided {
     boolean eDefense = false;
 
     //game begins
-    pw.print("Welcome to Deadly Encounter!\nPlease enter your name >> ");
+    pw.println("Welcome to Deadly Encounter!");
+    pw.println("Please enter your name >>");
     playerName = keyboard.nextLine();
     player.displayPlayer();
     boolean gameRunning = true;
@@ -110,11 +111,26 @@ public class DEDivided {
       enemyPhase.put(4, "Flee");
 
     while(gameRunning == true) {
-      pw.print("\n\n.\n..\n...\nYou awaken in a dimly lit area of a dark, dank hole in the earth.\nBeside you is a torch set in a nook in the ground \nthat casts its light in a small circle.\nShadows move silently just beyond the glow of your meager light.\nYou pick up the torch and consider for a moment what you'll do \nto the bastard that put you here.\n\n");
+      pw.println(".");
+      pw.println("..");
+      pw.println("...");
+      pw.println("You awaken in a dimly lit area of a dark, dank hole in the earth.");
+      pw.println("Beside you is a torch set in a nook in the ground");
+      pw.println("that casts its light in a small circle.");
+      pw.println("Shadows move silently just beyond the glow of your meager light.");
+      pw.println("You pick up the torch and consider for a moment what you'll do");
+      pw.println("to the bastard that put you here.");
+      pw.println("");
+      pw.println("");
       boolean traveling = true;
 
       while(traveling == true) {
-        pw.print("Main Menu:\n(1: Move)\n(2: Item)\n(3: Map)\n(0: Quit)\n>> ");
+        pw.println("Main Menu:");
+        pw.println("(1: Move)");
+        pw.println("(2: Item)");
+        pw.println("(3: Map)");
+        pw.println("(0: Quit)");
+        System.out.print(">> ");
         menu = keyboard.nextInt();
         pw.println("");
         switch(menu) {
@@ -126,7 +142,12 @@ public class DEDivided {
 
 		      //player movement
           case 1:
-            pw.print("Choose a direction to travel: \n(1: North)\n(2: East)\n(3: South)\n(4: West)\n>> ");
+            pw.println("Choose a direction to travel: ");
+            pw.println("(1: North)");
+            pw.println("(2: East)");
+            pw.println("(3: South)");
+            pw.println("(4: West)");
+            System.out.print(">> ");
             movement = keyboard.nextInt();
             pw.println("");
             map.add(movementList.get(movement));
@@ -182,7 +203,13 @@ public class DEDivided {
                         }
                         turnCount++;
                         while(command < 1 || command > 5) {
-                          pw.print("Choose your action >> \n(1: Attack)\n(2: Defend)\n(3: Magic)\n(4: Item)\n(5: Flee)\n>> ");
+                          pw.println("Choose your action >> ");
+                          pw.println("(1: Attack)");
+                          pw.println("(2: Defend)");
+                          pw.println("(3: Magic)");
+                          pw.println("(4: Item)");
+                          pw.println("(5: Flee)");
+                          System.out.print(">> ");
                           command = keyboard.nextInt();
                         }
                         switch(command) {
@@ -211,7 +238,12 @@ public class DEDivided {
                             pw.println("You are casting a spell!");
 
                             //magic selection
-                            pw.print("Choose a magic to use: \n(1: Arrow)\n(2: Fireball)\n(3: Sleep)\n(4: Cure)\n>>");
+                            pw.println("Choose a magic to use: ");
+                            pw.println("(1: Arrow)");
+                            pw.println("(2: Fireball)");
+                            pw.println("(3: Sleep)");
+                            pw.println("(4: Cure)");
+                            System.out.print(">> ");
                             magic = keyboard.nextInt();
                             if(magic == 1 && playerMagic >= 2) {
                               enemyHealth -= 2;
@@ -248,8 +280,13 @@ public class DEDivided {
                             break;
                           case 4:
                             while(itemChoice < 1 || itemChoice > 2) {
-                              pw.println("Item List:\nHealth Potions: " + healthPotion + "\nMagic Potions: " + magicPotion);
-                              pw.print("Choose an item to use:\n(1: Health Potion)\n(2: Magic Potion)\n>> ");
+                              pw.println("Item List:");
+                              pw.println("Health Potions: " + healthPotion + "");
+                              pw.println("Magic Potions: " + magicPotion);
+                              pw.println("Choose an item to use:");
+                              pw.println("(1: Health Potion)");
+                              pw.println("(2: Magic Potion)");
+                              System.out.print(">> ");
                               itemChoice = keyboard.nextInt();
                             }
 
@@ -333,12 +370,14 @@ public class DEDivided {
                             }
                             break;
                           case "Block":
-                            pw.println("The " + enemyName + " blocks.\n");
+                            pw.println("The " + enemyName + " blocks.");
+                            pw.println("");
                             eDefense = true;
                             break;
                           case "Cast":
                             if(enemyMagic > 2) {
-                              pw.println("The " + enemyName + " casts Magic Arrow!\nDeals " + 2 + " damage.");
+                              pw.println("The " + enemyName + " casts Magic Arrow!");
+                              pw.println("Deals " + 2 + " damage.");
                               playerHealth -= 2;
                               enemyMagic -= 2;
                             } else {
@@ -377,7 +416,11 @@ public class DEDivided {
                       attackPower += baseATT + (10 + (int)(Math.random() * 10));
                       defensePower += baseDEF + (10 + (int)(Math.random() * 10));
                       xP -= 50;
-                      pw.println(playerName + "\nHP: " + playerHealth + "\nMP: " + playerMagic + "\nATT: " + attackPower + "\nDEF: " + defensePower);
+                      pw.println(playerName + "");
+                      pw.println("HP: " + playerHealth + "");
+                      pw.println("MP: " + playerMagic + "");
+                      pw.println("ATT: " + attackPower + "");
+                      pw.println("DEF: " + defensePower);
                   }
                 }
                 if(playerHealth <= 0) {
@@ -390,14 +433,15 @@ public class DEDivided {
                 break;
               case "a Chest":
                 pw.println("You've encountered " + eventName);
-                pw.println("The chest has a numerical lock attached to the front.\nGuess the correct number and the treasure is yours.");
+                pw.println("The chest has a numerical lock attached to the front.");
+                pw.println("Guess the correct number and the treasure is yours.");
                 treasure = (1 + (int)(Math.random() * 2));
                 chestNumber = (1 + (int)(Math.random() * 50));
                 countDown = (3 + (int)(Math.random() * 3));
                 chestTurn = true;
                 while(countDown > 0 && chestTurn == true) {
                   pw.println("You have " + countDown + " guesses left. Make them count!");
-                  pw.print("Guess A Number Between 1 and 50 >> ");
+                  System.out.print("Guess A Number Between 1 and 50 >> ");
                   userGuess = keyboard.nextInt();
                   --countDown;
                   if(userGuess < chestNumber) {
@@ -424,7 +468,8 @@ public class DEDivided {
                 }
                 break;
               case "a Trap":
-                pw.println("You've run into a TRAP!\nYou take 5 points of damage.");
+                pw.println("You've run into a TRAP!");
+                pw.println("You take 5 points of damage.");
                 playerHealth -= 5;
                 pw.println("Player HP: " + playerHealth);
                 if(playerHealth <= 0) {
@@ -434,13 +479,21 @@ public class DEDivided {
                 }
                 break;
               case "no Encounter":
-                pw.println("The darkness feels like it is closing in around you.\nEven the crickets have grown quiet.\nYou do not feel safe enough to rest for the night.\nYou decide to keep moving.");
+                pw.println("The darkness feels like it is closing in around you.");
+                pw.println("Even the crickets have grown quiet.");
+                pw.println("You do not feel safe enough to rest for the night.");
+                pw.println("You decide to keep moving.");
                 break;
             }
             break;
           case 2:
-            pw.println("Item List:\nHealth Potions: " + healthPotion + "\nMagic Potions: " + magicPotion);
-            pw.print("Choose an item to use:\n(1: Health Potion)\n(2: Magic Potion)\n>>");
+            pw.println("Item List:");
+            pw.println("Health Potions: " + healthPotion + "");
+            pw.println("Magic Potions: " + magicPotion);
+            pw.println("Choose an item to use:");
+            pw.println("(1: Health Potion)");
+            pw.println("(2: Magic Potion)");
+            System.out.print(">>");
             itemChoice = keyboard.nextInt();
             switch(itemChoice) {
               case 1:
