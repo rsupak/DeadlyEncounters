@@ -12,7 +12,9 @@ public class DEDivided {
   public static void main(String[] args) {
     Scanner keyboard = new Scanner(System.in);
     PrintWriter pw = new PrintWriter(System.out, true);
-
+    //text fields
+    TextFields gameText = new TextFields();
+    Menus menuText = new Menus();
     //Sprites
     PlayerSprite player = new PlayerSprite();
     EnemySprite enemy = new EnemySprite();
@@ -63,8 +65,7 @@ public class DEDivided {
     boolean eDefense = false;
 
     //game begins
-    pw.println("Welcome to Deadly Encounter!");
-    pw.println("Please enter your name >>");
+    gameText.intro();
     playerName = keyboard.nextLine();
     player.displayPlayer();
     boolean gameRunning = true;
@@ -108,26 +109,11 @@ public class DEDivided {
       enemyPhase.put(4, "Flee");
 
     while(gameRunning == true) {
-      pw.println(".");
-      pw.println("..");
-      pw.println("...");
-      pw.println("You awaken in a dimly lit area of a dark, dank hole in the earth.");
-      pw.println("Beside you is a torch set in a nook in the ground");
-      pw.println("that casts its light in a small circle.");
-      pw.println("Shadows move silently just beyond the glow of your meager light.");
-      pw.println("You pick up the torch and consider for a moment what you'll do");
-      pw.println("to the bastard that put you here.");
-      pw.println("");
-      pw.println("");
+      gameText.gameStart();
       boolean traveling = true;
 
       while(traveling == true) {
-        pw.println("Main Menu:");
-        pw.println("(1: Move)");
-        pw.println("(2: Item)");
-        pw.println("(3: Map)");
-        pw.println("(0: Quit)");
-        System.out.print(">> ");
+        menuText.mainMenu();
         menu = keyboard.nextInt();
         pw.println("");
         switch(menu) {
@@ -139,12 +125,7 @@ public class DEDivided {
 
 		      //player movement
           case 1:
-            pw.println("Choose a direction to travel: ");
-            pw.println("(1: North)");
-            pw.println("(2: East)");
-            pw.println("(3: South)");
-            pw.println("(4: West)");
-            System.out.print(">> ");
+            menuText.travelMenu();
             movement = keyboard.nextInt();
             pw.println("");
             map.add(movementList.get(movement));
@@ -200,13 +181,7 @@ public class DEDivided {
                         }
                         turnCount++;
                         while(command < 1 || command > 5) {
-                          pw.println("Choose your action >> ");
-                          pw.println("(1: Attack)");
-                          pw.println("(2: Defend)");
-                          pw.println("(3: Magic)");
-                          pw.println("(4: Item)");
-                          pw.println("(5: Flee)");
-                          System.out.print(">> ");
+                          menuText.combatMenu();
                           command = keyboard.nextInt();
                         }
                         switch(command) {
@@ -235,12 +210,7 @@ public class DEDivided {
                             pw.println("You are casting a spell!");
 
                             //magic selection
-                            pw.println("Choose a magic to use: ");
-                            pw.println("(1: Arrow)");
-                            pw.println("(2: Fireball)");
-                            pw.println("(3: Sleep)");
-                            pw.println("(4: Cure)");
-                            System.out.print(">> ");
+                            menuText.magicMenu();
                             magic = keyboard.nextInt();
                             if(magic == 1 && playerMagic >= 2) {
                               enemyHealth -= 2;
@@ -276,14 +246,10 @@ public class DEDivided {
                             command = 0;
                             break;
                           case 4:
-                            while(itemChoice < 1 || itemChoice > 2) {
-                              pw.println("Item List:");
-                              pw.println("Health Potions: " + healthPotion + "");
-                              pw.println("Magic Potions: " + magicPotion);
-                              pw.println("Choose an item to use:");
-                              pw.println("(1: Health Potion)");
-                              pw.println("(2: Magic Potion)");
-                              System.out.print(">> ");
+                            while(itemChoice < 1 || itemChoice > 2) {pw.println("Item List:");
+                            pw.println("Health Potions: " + healthPotion + "");
+                            pw.println("Magic Potions: " + magicPotion);
+                              menuText.itemMenu();
                               itemChoice = keyboard.nextInt();
                             }
 
