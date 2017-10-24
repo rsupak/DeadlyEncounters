@@ -2,16 +2,16 @@
 //Written by Richard Supak
 //Written on 19October2017
 
-import javax.swing.JFrame;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import java.util.Hashtable;
 import java.util.Scanner;
-import java.util.*;
+import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
+import java.io.PrintWriter;
 
 public class DEDivided {
   public static void main(String[] args) {
     Scanner keyboard = new Scanner(System.in);
+    PrintWriter pw = new PrintWriter(System.out, true);
 
     //Sprites
     PlayerSprite player = new PlayerSprite();
@@ -66,7 +66,7 @@ public class DEDivided {
     boolean eDefense = false;
 
     //game begins
-    System.out.print("Welcome to Deadly Encounter!\nPlease enter your name >> ");
+    pw.print("Welcome to Deadly Encounter!\nPlease enter your name >> ");
     playerName = keyboard.nextLine();
     player.displayPlayer();
     boolean gameRunning = true;
@@ -76,7 +76,7 @@ public class DEDivided {
 
 
     //event tables
-    Hashtable<Integer, String> eventList = new Hashtable<>();
+    HashMap<Integer, String> eventList = new HashMap<>();
       eventList.put(1, "a Trap");
       eventList.put(2, "a Locked Door");
       eventList.put(3, "a Chest");
@@ -86,7 +86,7 @@ public class DEDivided {
     int eventSet;
 
     //movement tables
-    Hashtable<Integer, String> movementList = new Hashtable<>();
+    HashMap<Integer, String> movementList = new HashMap<>();
       movementList.put(1, "NORTH");
       movementList.put(2, "EAST");
       movementList.put(3, "SOUTH");
@@ -95,7 +95,7 @@ public class DEDivided {
     List<String> map = new ArrayList<String>();
 
     //Main Menu
-    Hashtable<Integer, String> mainMenu = new Hashtable<>();
+    HashMap<Integer, String> mainMenu = new HashMap<>();
       mainMenu.put(1, "Move");
       mainMenu.put(2, "Item");
       mainMenu.put(3, "Map");
@@ -103,41 +103,41 @@ public class DEDivided {
     int menu;
 
     //enemy actions
-    Hashtable<Integer, String> enemyPhase = new Hashtable<>();
+    HashMap<Integer, String> enemyPhase = new HashMap<>();
       enemyPhase.put(1, "Attack");
       enemyPhase.put(2, "Block");
       enemyPhase.put(3, "Cast");
       enemyPhase.put(4, "Flee");
 
     while(gameRunning == true) {
-      System.out.print("\n\n.\n..\n...\nYou awaken in a dimly lit area of a dark, dank hole in the earth.\nBeside you is a torch set in a nook in the ground \nthat casts its light in a small circle.\nShadows move silently just beyond the glow of your meager light.\nYou pick up the torch and consider for a moment what you'll do \nto the bastard that put you here.\n\n");
+      pw.print("\n\n.\n..\n...\nYou awaken in a dimly lit area of a dark, dank hole in the earth.\nBeside you is a torch set in a nook in the ground \nthat casts its light in a small circle.\nShadows move silently just beyond the glow of your meager light.\nYou pick up the torch and consider for a moment what you'll do \nto the bastard that put you here.\n\n");
       boolean traveling = true;
 
       while(traveling == true) {
-        System.out.print("Main Menu:\n(1: Move)\n(2: Item)\n(3: Map)\n(0: Quit)\n>> ");
+        pw.print("Main Menu:\n(1: Move)\n(2: Item)\n(3: Map)\n(0: Quit)\n>> ");
         menu = keyboard.nextInt();
-        System.out.println("");
+        pw.println("");
         switch(menu) {
           case 0:
-            System.out.println("Sorry to see you go, traveler...");
+            pw.println("Sorry to see you go, traveler...");
             traveling = false;
             gameRunning = false;
             break;
 
 		      //player movement
           case 1:
-            System.out.print("Choose a direction to travel: \n(1: North)\n(2: East)\n(3: South)\n(4: West)\n>> ");
+            pw.print("Choose a direction to travel: \n(1: North)\n(2: East)\n(3: South)\n(4: West)\n>> ");
             movement = keyboard.nextInt();
-            System.out.println("");
+            pw.println("");
             map.add(movementList.get(movement));
 
             //begin encounter checks
             eventSet =  1 + (int)(Math.random() * 5);
             eventName = eventList.get(eventSet);
-            System.out.println("You decided to set out to the " + movementList.get(movement));
+            pw.println("You decided to set out to the " + movementList.get(movement));
             switch(eventName) {
               case "an Enemy":
-                System.out.println("Suddenly you encounter " + eventName + "!");
+                pw.println("Suddenly you encounter " + eventName + "!");
                 fighting = true;
 
                 //setup enemy
@@ -154,7 +154,7 @@ public class DEDivided {
                 enemyDefensePower = enemy.getDefPow();
                 exp = enemy.getXP();
 
-                System.out.println("You have encountered a(n) " + enemyName);
+                pw.println("You have encountered a(n) " + enemyName);
 
                 //begin combat sequence
                 sequence = (int)(1 + Math.random() * 2);
@@ -166,81 +166,81 @@ public class DEDivided {
                         ++sequence;
                       } else {
                         ++sequence;
-                        System.out.println("");
-                        System.out.println(playerName);
-                        System.out.println("HP: " + playerHealth);
-                        System.out.println("MP: " + playerMagic);
-                        System.out.println("");
+                        pw.println("");
+                        pw.println(playerName);
+                        pw.println("HP: " + playerHealth);
+                        pw.println("MP: " + playerMagic);
+                        pw.println("");
                         if(turnCount <= 1){
                           enemy.displayFogOfWar();
                         } else {
-                          System.out.println("");
-                          System.out.println(enemyName);
-                          System.out.println("HP: " + enemyHealth);
-                          System.out.println("MP: " + enemyMagic);
-                          System.out.println("");
+                          pw.println("");
+                          pw.println(enemyName);
+                          pw.println("HP: " + enemyHealth);
+                          pw.println("MP: " + enemyMagic);
+                          pw.println("");
                         }
                         turnCount++;
                         while(command < 1 || command > 5) {
-                          System.out.print("Choose your action >> \n(1: Attack)\n(2: Defend)\n(3: Magic)\n(4: Item)\n(5: Flee)\n>> ");
+                          pw.print("Choose your action >> \n(1: Attack)\n(2: Defend)\n(3: Magic)\n(4: Item)\n(5: Flee)\n>> ");
                           command = keyboard.nextInt();
                         }
                         switch(command) {
                           case 1:
-                            System.out.println(playerName + " attacks!");
+                            pw.println(playerName + " attacks!");
                             attack = (attackPower + (int)(Math.random() * 3));
                             if((attack - enemyDefensePower) >= 0) {
                               if(eDefense == true) {
                                 enemyHealth = enemyHealth - (attack - enemyDefensePower) + 2;
-                                System.out.println(enemyName + " takes " + ((attack - enemyDefensePower) + 2) + " points of damage.");
+                                pw.println(enemyName + " takes " + ((attack - enemyDefensePower) + 2) + " points of damage.");
                               } else {
                                 enemyHealth = enemyHealth - (attack - enemyDefensePower);
-                                System.out.println(enemyName + " takes " + (attack - enemyDefensePower) + " points of damage.");
+                                pw.println(enemyName + " takes " + (attack - enemyDefensePower) + " points of damage.");
                               }
                             } else {
-                              System.out.println("Glancing blow! " + enemyName + " takes no damage.");
+                              pw.println("Glancing blow! " + enemyName + " takes no damage.");
                             }
                             command = 0;
                             break;
                           case 2:
-                            System.out.println(playerName + " defends.");
+                            pw.println(playerName + " defends.");
                             defense = true;
                             command = 0;
                             break;
                           case 3:
-                            System.out.println("You are casting a spell!");
+                            pw.println("You are casting a spell!");
 
                             //magic selection
-                            System.out.println("Choose a magic to use: \n(1: Arrow)\n(2: Fireball)\n(3: Sleep)\n(4: Cure)\n>>");
+                            pw.print("Choose a magic to use: \n(1: Arrow)\n(2: Fireball)\n(3: Sleep)\n(4: Cure)\n>>");
                             magic = keyboard.nextInt();
                             if(magic == 1 && playerMagic >= 2) {
                               enemyHealth -= 2;
                               playerMagic -= 2;
                             } else if(magic == 2 && playerMagic >= 5) {
                               damage = (3 + (int)(Math.random() * 5));
-                              System.out.println("You did " + damage + " points of damage to the " + enemyName);
+                              pw.println("You did " + damage + " points of damage to the " + enemyName);
                               enemyHealth -= damage;
                               playerMagic -= 5;
                             } else if(magic == 3 && playerMagic >= 3) {
                               int sleepCheck = (1 + (int)(Math.random() * 10));
                               if(sleepCheck >= 7) {
-                                System.out.println("Enemy is asleep");
-                                sleepCount = 2;
+                                sleepCount = (int)(1 + Math.random() * 5);
+                                pw.println("Enemy is asleep for " + sleepCount + " turns!");
                               } else if(sleepCheck == 5 || sleepCheck == 6){
-                                System.out.println("Enemy is dazed");
-                                sleepCount = 1;
+                                sleepCount = 2;
+                                pw.println("Enemy is dazed for " + sleepCount + " turns.");
                               } else {
-                                System.out.println("Spell ineffective!");
+                                pw.println("Spell ineffective!");
                                 sleepCount = 0;
                               }
                               playerMagic -= 3;
                             } else if(magic == 4 && playerMagic >= 4){
-                              System.out.println(playerName + "casts Cure!");
+                              pw.println(playerName + " casts Cure!");
                               playerHealth += cure;
-                              System.out.println("Current HP: " + playerHealth);
+                              pw.println("Current HP: " + playerHealth);
                               playerMagic -= 4;
                             } else {
-                              System.out.println("Insufficient MP! You only have " + playerMagic + "MP! Using a magic potion to help!");
+                              pw.println("Insufficient MP! You only have " + playerMagic + "MP! Using a magic potion to help!");
                               magicPotion -= 1;
                               playerMagic += 10;
                             }
@@ -248,8 +248,8 @@ public class DEDivided {
                             break;
                           case 4:
                             while(itemChoice < 1 || itemChoice > 2) {
-                              System.out.println("Item List:\nHealth Potions: " + healthPotion + "\nMagic Potions: " + magicPotion);
-                              System.out.print("Choose an item to use:\n(1: Health Potion)\n(2: Magic Potion)\n>> ");
+                              pw.println("Item List:\nHealth Potions: " + healthPotion + "\nMagic Potions: " + magicPotion);
+                              pw.print("Choose an item to use:\n(1: Health Potion)\n(2: Magic Potion)\n>> ");
                               itemChoice = keyboard.nextInt();
                             }
 
@@ -259,20 +259,20 @@ public class DEDivided {
                                 if(healthPotion > 0) {
                                   playerHealth += 10;
                                   healthPotion -= 1;
-                                  System.out.println("Player HP: " + playerHealth);
+                                  pw.println("Player HP: " + playerHealth);
                                 } else {
-                                  System.out.println("You have no more Health Potions!");
-                                  System.out.println("Player HP: " + playerHealth);
+                                  pw.println("You have no more Health Potions!");
+                                  pw.println("Player HP: " + playerHealth);
                                 }
                                 break;
                               case 2:
                                 if(magicPotion > 0) {
                                   playerMagic += 10;
                                   magicPotion -= 1;
-                                  System.out.println("Player MP: " + playerMagic);
+                                  pw.println("Player MP: " + playerMagic);
                                 } else {
-                                  System.out.println("You have no more Magic Potions!");
-                                  System.out.println("Player MP: " + playerMagic);
+                                  pw.println("You have no more Magic Potions!");
+                                  pw.println("Player MP: " + playerMagic);
                                 }
                                 break;
                             }
@@ -283,12 +283,12 @@ public class DEDivided {
 							              //escape sequence
                             int fleeChance = (1 + (int)(Math.random() * 10));
                             if(fleeChance > 5) {
-                              System.out.println(playerName + " successfully escapes!");
+                              pw.println(playerName + " successfully escapes!");
                               fighting = false;
                               xP += 0;
                             } else {
-                              System.out.println(playerName + " cannot escape!");
-                              System.out.println(playerName + " is stunned for 1 turn.");
+                              pw.println(playerName + " cannot escape!");
+                              pw.println(playerName + " is stunned for 1 turn.");
                               playerSleepCount = 1;
                             }
                             command = 0;
@@ -319,43 +319,43 @@ public class DEDivided {
 						            //enemy random command selections
                         switch(eCommand) {
                           case "Attack":
-                            System.out.println("The " + enemyName + " attacks!");
+                            pw.println("The " + enemyName + " attacks!");
                             if((enemyAttackPower - defensePower) >= 0) {
                               if (defense == true) {
                                 playerHealth = playerHealth - ((enemyAttackPower - defensePower) + 2);
-                                System.out.println(playerName + " takes " + ((enemyAttackPower - defensePower) + 2) + " damage.");
+                                pw.println(playerName + " takes " + ((enemyAttackPower - defensePower) + 2) + " damage.");
                               } else {
                                 playerHealth = playerHealth - (enemyAttackPower - defensePower);
-                                System.out.println(playerName + " takes " + (enemyAttackPower - defensePower) + " damage.");
+                                pw.println(playerName + " takes " + (enemyAttackPower - defensePower) + " damage.");
                               }
                             } else {
-                              System.out.println(playerName + " takes no damage!");
+                              pw.println(playerName + " takes no damage!");
                             }
                             break;
                           case "Block":
-                            System.out.println("The " + enemyName + " blocks.\n");
+                            pw.println("The " + enemyName + " blocks.\n");
                             eDefense = true;
                             break;
                           case "Cast":
                             if(enemyMagic > 2) {
-                              System.out.println("The " + enemyName + " casts Magic Arrow!\nDeals " + 2 + " damage.");
+                              pw.println("The " + enemyName + " casts Magic Arrow!\nDeals " + 2 + " damage.");
                               playerHealth -= 2;
                               enemyMagic -= 2;
                             } else {
-                              System.out.println("The " + enemyName + " casts Magic Arrow!");
-                              System.out.println("Enemy spell fizzles...");
+                              pw.println("The " + enemyName + " casts Magic Arrow!");
+                              pw.println("Enemy spell fizzles...");
                             }
                             break;
                           case "Flee":
-                            System.out.println("The " + enemyName + " tries an escape!");
+                            pw.println("The " + enemyName + " tries an escape!");
                             int eFleeChance = (1 + (int)(Math.random() * 10));
                             if(eFleeChance < 3) {
-                              System.out.println(enemyName + " successfully escapes!");
+                              pw.println(enemyName + " successfully escapes!");
                               fighting = false;
                               xP += 0;
                             } else {
-                              System.out.println(enemyName + " cannot escape!");
-                              System.out.println(enemyName + " is stunned for 1 turn.");
+                              pw.println(enemyName + " cannot escape!");
+                              pw.println(enemyName + " is stunned for 1 turn.");
                               sleepCount = 1;
                             }
                         }
@@ -364,131 +364,103 @@ public class DEDivided {
                 }
                 //end combat sequence
                 if(enemyHealth <= 0) {
-                  System.out.println("You have successfully killed the " + enemyName + "!");
-                  System.out.println("You have earned " + exp + "XP!");
+                  pw.println("You have successfully killed the " + enemyName + "!");
+                  pw.println("You have earned " + exp + "XP!");
                   xP += exp;
-                  System.out.println("Total XP is " + xP);
+                  pw.println("Total XP is " + xP);
                   turnCount = 1;
+                  while(xP >= 50) {
+                      pw.println("Congratulations! " + playerName + " has leveled up!");
+
+                      playerHealth += baseHP + (10 + (int)(Math.random() * 10));
+                      playerMagic +=  baseMP + (10 + (int)(Math.random() * 10));
+                      attackPower += baseATT + (10 + (int)(Math.random() * 10));
+                      defensePower += baseDEF + (10 + (int)(Math.random() * 10));
+                      xP -= 50;
+                      pw.println(playerName + "\nHP: " + playerHealth + "\nMP: " + playerMagic + "\nATT: " + attackPower + "\nDEF: " + defensePower);
+                  }
                 }
                 if(playerHealth <= 0) {
-                  System.out.println(playerName + " has perished...may his shade find the peace he never found in life.");
                   gameRunning = false;
                   traveling = false;
                 }
                 break;
               case "a Locked Door":
-              JFrame frame1 = new JFrame();
-              ImageIcon door = new ImageIcon("door.jpg");
-              JLabel label = new JLabel(door);
-              frame1.add(label);
-              frame1.setDefaultCloseOperation
-                    (JFrame.DISPOSE_ON_CLOSE);
-              frame1.pack();
-              frame1.setVisible(true);
-                System.out.println("Locked Door");
-              frame1.dispose();
-              break;
+                pw.println("Locked Door");
+                break;
               case "a Chest":
-              JFrame frame2 = new JFrame();
-              ImageIcon chest = new ImageIcon("chest.jpg");
-              JLabel chest1 = new JLabel(chest);
-              frame2.add(chest1);
-              frame2.setDefaultCloseOperation
-                  (JFrame.DISPOSE_ON_CLOSE);
-              frame2.pack();
-              frame2.setVisible(true);
-                System.out.println("Locked Door");
-                System.out.println("You've encountered " + eventName);
-                System.out.println("The chest has a numerical lock attached to the front.\nGuess the correct number and the treasure is yours.");
+                pw.println("You've encountered " + eventName);
+                pw.println("The chest has a numerical lock attached to the front.\nGuess the correct number and the treasure is yours.");
                 treasure = (1 + (int)(Math.random() * 2));
                 chestNumber = (1 + (int)(Math.random() * 50));
                 countDown = (3 + (int)(Math.random() * 3));
                 chestTurn = true;
                 while(countDown > 0 && chestTurn == true) {
-                  System.out.println("You have " + countDown + " guesses left. Make them count!");
-                  System.out.print("Guess A Number Between 1 and 50 >> ");
+                  pw.println("You have " + countDown + " guesses left. Make them count!");
+                  pw.print("Guess A Number Between 1 and 50 >> ");
                   userGuess = keyboard.nextInt();
                   --countDown;
                   if(userGuess < chestNumber) {
-                    System.out.println("Too low!");
+                    pw.println("Too low!");
                   } else if(userGuess > chestNumber) {
-                    System.out.println("Too high!");
+                    pw.println("Too high!");
                   } else if(userGuess == chestNumber) {
-                    System.out.println("You chose wisely!");
+                    pw.println("You chose wisely!");
                     if(treasure == 1) {
                       healthPotion++;
-                      System.out.println("You now have: " + healthPotion + " health potions");
+                      pw.println("You now have: " + healthPotion + " health potions");
                     } else if(treasure == 2) {
                       magicPotion++;
-                      System.out.println("You now have: " + magicPotion + " magic potions");
+                      pw.println("You now have: " + magicPotion + " magic potions");
                     }
                     chestTurn = false;
                   }
 
                   if(countDown == 0 || chestTurn == false){
                     chestTurn = false;
-                    System.out.println("The chest suddenly disappears!");
+                    pw.println("The chest suddenly disappears!");
 
                   }
                 }
-                frame2.dispose();
                 break;
               case "a Trap":
-              JFrame frame3 = new JFrame();
-              ImageIcon trap = new ImageIcon("trap.jpg");
-              JLabel trap1 = new JLabel(trap);
-              frame3.add(trap1);
-              frame3.setDefaultCloseOperation
-                   (JFrame.DISPOSE_ON_CLOSE);
-              frame3.pack();
-              frame3.setVisible(true);
-                System.out.println("You've run into a TRAP!\nYou take 5 points of damage.");
+                pw.println("You've run into a TRAP!\nYou take 5 points of damage.");
                 playerHealth -= 5;
-                System.out.println("Player HP: " + playerHealth);
+                pw.println("Player HP: " + playerHealth);
                 if(playerHealth <= 0) {
-                  System.out.println(playerName + " has perished...may his shade find the peace he never found in life.");
+                  pw.println(playerName + " has perished...may his shade find the peace he never found in life.");
                   gameRunning = false;
                   traveling = false;
                 }
-                frame3.dispose();
                 break;
               case "no Encounter":
-              JFrame frame4 = new JFrame();
-              ImageIcon path = new ImageIcon("path.jpg");
-              JLabel path1 = new JLabel(path);
-              frame4.add(path1);
-             frame4.setDefaultCloseOperation
-                     (JFrame.DISPOSE_ON_CLOSE);
-              frame4.pack();
-              frame4.setVisible(true);
-                System.out.println("The darkness feels like it is closing in around you.\nEven the crickets have grown quiet.\nYou do not feel safe enough to rest for the night.\nYou decide to keep moving.");
-                frame4.dispose();
+                pw.println("The darkness feels like it is closing in around you.\nEven the crickets have grown quiet.\nYou do not feel safe enough to rest for the night.\nYou decide to keep moving.");
                 break;
             }
             break;
           case 2:
-            System.out.println("Item List:\nHealth Potions: " + healthPotion + "\nMagic Potions: " + magicPotion);
-            System.out.print("Choose an item to use:\n(1: Health Potion)\n(2: Magic Potion)\n>>");
+            pw.println("Item List:\nHealth Potions: " + healthPotion + "\nMagic Potions: " + magicPotion);
+            pw.print("Choose an item to use:\n(1: Health Potion)\n(2: Magic Potion)\n>>");
             itemChoice = keyboard.nextInt();
             switch(itemChoice) {
               case 1:
                 if(healthPotion > 0) {
                   playerHealth += 10;
                   healthPotion -= 1;
-                  System.out.println("Player HP: " + playerHealth);
+                  pw.println("Player HP: " + playerHealth);
                 } else {
-                  System.out.println("You have no more Health Potions!");
-                  System.out.println("Player HP: " + playerHealth);
+                  pw.println("You have no more Health Potions!");
+                  pw.println("Player HP: " + playerHealth);
                 }
                 break;
               case 2:
                 if(magicPotion > 0) {
                   playerMagic += 10;
                   magicPotion -= 1;
-                  System.out.println("Player MP: " + playerMagic);
+                  pw.println("Player MP: " + playerMagic);
                 } else {
-                  System.out.println("You have no more Magic Potions!");
-                  System.out.println("Player MP: " + playerMagic);
+                  pw.println("You have no more Magic Potions!");
+                  pw.println("Player MP: " + playerMagic);
                 }
                 break;
             }
@@ -496,12 +468,12 @@ public class DEDivided {
             command = 0;
             break;
           case 3:
-            System.out.println(map);
+            pw.println(map);
             break;
         }
         //player death
         if(playerHealth <= 0) {
-          System.out.println(playerName + " has perished...may his shade find the peace he never found in life.");
+          pw.println(playerName + " has perished...may his shade find the peace he never found in life.");
           gameRunning = false;
           traveling = false;
         }
