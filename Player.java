@@ -65,36 +65,38 @@ public class Player {
         ++level;
         upgrades = 10;
       }
-      if(exp >= levelUp) {
-        ++level;
-        exp -= levelUp;
-        levelUp *= 1.25;
-        upgrades = roll.nextInt(3) + 1;
-      }
-      while(upgrades > 0) {
-        pw.println("You have " + upgrades + " Stat points to allocate:");
-        pw.println("Modify your character:");
-        --upgrades;
-        pw.println("Choose a stat to update:");
-        pw.println("(1: Vitality)\t\tVIT: " + vitality);
-        pw.println("(2: Intelligence)\tINT: " + intelligence);
-        pw.println("(3: Strength)\t\tSTR: " + strength);
-        pw.println("(4: Stamina)\t\tSTA: " + stamina);
-        int stat = keyboard.nextInt();
+      while(exp >= levelUp || upgrades > 0){
+        if(exp >= levelUp) {
+          ++level;
+          exp -= levelUp;
+          levelUp *= 1.25;
+          upgrades = roll.nextInt(3) + 1;
+        }
+        while(upgrades > 0) {
+          pw.println("You have " + upgrades + " Stat points to allocate:");
+          pw.println("Modify your character:");
+          --upgrades;
+          pw.println("Choose a stat to update:");
+          pw.println("(1: Vitality)\t\tVIT: " + vitality);
+          pw.println("(2: Intelligence)\tINT: " + intelligence);
+          pw.println("(3: Strength)\t\tSTR: " + strength);
+          pw.println("(4: Stamina)\t\tSTA: " + stamina);
+          int stat = keyboard.nextInt();
 
-        switch(stat) {
-          case 1:
-            vitality += 1;
-            break;
-          case 2:
-            intelligence += 1;
-            break;
-          case 3:
-            strength += 1;
-            break;
-          case 4:
-            stamina += 1;
-            break;
+          switch(stat) {
+            case 1:
+              vitality += 1;
+              break;
+            case 2:
+              intelligence += 1;
+              break;
+            case 3:
+              strength += 1;
+              break;
+            case 4:
+              stamina += 1;
+              break;
+          }
         }
       }
     }
