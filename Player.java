@@ -9,7 +9,8 @@ import java.io.PrintWriter;
 public class Player {
 
     private String playerName;
-    private int healthPoints, magicPoints, attackPower, defensePower, strength = 5, intelligence = 5, vitality = 5 , stamina = 5;
+    private int healthPoints, magicPoints, attackPower, defensePower, strength = 5, intelligence = 5, vitality = 5, stamina = 5, exp = 0, level = 0;
+
     Random roll = new Random();
     Scanner keyboard = new Scanner(System.in);
     PrintWriter pw = new PrintWriter(System.out, true);
@@ -28,6 +29,8 @@ public class Player {
     public void setPlayerName() {
       System.out.print("Enter your name >> ");
       this.playerName = keyboard.next();
+      pw.println("");
+      pw.println("Welcome " + playerName + "!");
     }
     public String getPlayerName() {
       return playerName;
@@ -57,15 +60,36 @@ public class Player {
     public void setStamina(int sta) {stamina += sta;}
     public int getStamina() {return stamina;}
 
-    public void updatePlayer(int points) {
-      while(points > 0) {
-        --points;
+    public void setExp(int xp) {
+      exp += xp;
+      if(exp >= 50) {
+        this.setLevel();
+      }
+    }
+    public int getExp() {return exp;}
+
+    public void setLevel() {
+      int upgrades = 0;
+      if(level == 0) {
+        ++level;
+        upgrades = 10;
+      }
+      if(exp >= 50) {
+        ++level;
+        exp -=50;
+        upgrades = roll.nextInt(3) + 1;
+      }
+      pw.println("You have " + upgrades + " Stat points to allocate:");
+      pw.println("Modify your character:");
+      while(upgrades > 0) {
+        --upgrades;
         pw.println("Choose a stat to update:");
-        pw.println("(1: Vitality)");
-        pw.println("(2: Intelligence)");
-        pw.println("(3: Strength)");
-        pw.println("(4: Stamina)");
+        pw.println("(1: Vitality)\t\tVIT: " + vitality);
+        pw.println("(2: Intelligence)\tINT: " + intelligence);
+        pw.println("(3: Strength)\t\tSTR: " + strength);
+        pw.println("(4: Stamina)\t\tSTA: " + stamina);
         int stat = keyboard.nextInt();
+
         switch(stat) {
           case 1:
             vitality += 1;
@@ -82,18 +106,28 @@ public class Player {
         }
       }
     }
+    public int getLevel() {return level;}
 
-    public void displayPlayer() {
+    public void setPlayerStats() {
       this.setPlayerName();
+      this.setVitality(vitality);
+      this.setIntelligence(intelligence);
+      this.setStrength(strength);
+      this.setStamina(stamina);
+      this.setLevel();
       this.setHP();
       this.setMP();
       this.setAttkPow();
       this.setDefPow();
-      System.out.println(playerName);
-      System.out.println("HP: " + getHP());
-      System.out.println("MP: " + getMP());
-      System.out.println("ATT: " + getAttkPow());
-      System.out.println("DEF: " + getDefPow());
+    }
+
+    public void displayPlayer() {
+      pw.println(playerName);
+      pw.println("Level: " + getLevel());
+      pw.println("HP: " + getHP());
+      pw.println("MP: " + getMP());
+      pw.println("ATT: " + getAttkPow());
+      pw.println("DEF: " + getDefPow());
     }
 
 
