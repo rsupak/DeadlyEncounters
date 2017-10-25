@@ -1,6 +1,7 @@
-//Filename: PlayerSprite.java
+//Filename: Player.java
+//sub of DED.java
 //Written by Richard Supak
-//Written on 21October2017
+//Written on 24October2017
 
 import java.util.Random;
 import java.util.Scanner;
@@ -9,22 +10,12 @@ import java.io.PrintWriter;
 public class Player {
 
     private String playerName;
-    private int healthPoints, magicPoints, attackPower, defensePower, strength = 5, intelligence = 5, vitality = 5, stamina = 5, exp = 0, level = 0;
+    private int healthPoints, magicPoints, attackPower, defensePower, strength = 5, intelligence = 5, vitality = 5, stamina = 5, exp = 0, level = 0, levelUp = 50;
 
     Random roll = new Random();
     Scanner keyboard = new Scanner(System.in);
     PrintWriter pw = new PrintWriter(System.out, true);
 
-    public Player(String playerName, int healthPoints, int magicPoints, int attackPower, int defensePower) {
-      this.healthPoints = healthPoints;
-      this.magicPoints = magicPoints;
-      this.attackPower = attackPower;
-      this.defensePower = defensePower;
-    }
-
-    public Player() {
-      this("PlayerOne",5,5,5,5);
-    }
 
     public void setPlayerName() {
       System.out.print("Enter your name >> ");
@@ -62,7 +53,7 @@ public class Player {
 
     public void setExp(int xp) {
       exp += xp;
-      if(exp >= 50) {
+      if(exp >= levelUp) {
         this.setLevel();
       }
     }
@@ -74,14 +65,15 @@ public class Player {
         ++level;
         upgrades = 10;
       }
-      if(exp >= 50) {
+      if(exp >= levelUp) {
         ++level;
-        exp -=50;
+        exp -= levelUp;
+        levelUp *= 1.25;
         upgrades = roll.nextInt(3) + 1;
       }
-      pw.println("You have " + upgrades + " Stat points to allocate:");
-      pw.println("Modify your character:");
       while(upgrades > 0) {
+        pw.println("You have " + upgrades + " Stat points to allocate:");
+        pw.println("Modify your character:");
         --upgrades;
         pw.println("Choose a stat to update:");
         pw.println("(1: Vitality)\t\tVIT: " + vitality);
@@ -128,6 +120,7 @@ public class Player {
       pw.println("MP: " + getMP());
       pw.println("ATT: " + getAttkPow());
       pw.println("DEF: " + getDefPow());
+      pw.println("You need " + (levelUp - exp) + " to level up!");
     }
 
 
