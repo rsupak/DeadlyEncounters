@@ -69,7 +69,7 @@ public class Player {
         if(exp >= levelUp) {
           ++level;
           exp -= levelUp;
-          levelUp = (int)(Math.pow(levelUp, 11.78/10));
+          levelUp = (int)(Math.pow(levelUp, 1.178));
           pw.println(levelUp);
           upgrades = roll.nextInt(3) + 1;
         }
