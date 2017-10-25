@@ -35,5 +35,12 @@ public class DED {
         addXP = false;
       }
     }
+
+    //create enemy
+    Enemy enemy = new Enemy();
+    enemy.setEnemyName();
+    enemy.setLevel(playerOne.getLevel());
+    enemy.setStats();
+    enemy.displayEnemy();
   }
 }
