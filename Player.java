@@ -65,7 +65,7 @@ public class Player {
         ++level;
         upgrades = 10;
       }
-      while(exp >= levelUp || upgrades > 0){
+      while(exp >= levelUp || upgrades > 0) {
         if(exp >= levelUp) {
           ++level;
           exp -= levelUp;
