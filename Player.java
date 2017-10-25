@@ -99,16 +99,17 @@ public class Player {
               break;
           }
         }
+        this.updatePlayerStats();
       }
     }
     public int getLevel() {return level;}
 
     public void setPlayerStats() {
       this.setPlayerName();
-      this.setVitality(vitality);
-      this.setIntelligence(intelligence);
-      this.setStrength(strength);
-      this.setStamina(stamina);
+      this.updatePlayerStats();
+    }
+
+    public void updatePlayerStats() {
       this.setLevel();
       this.setHP();
       this.setMP();
