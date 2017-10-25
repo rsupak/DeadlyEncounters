@@ -10,7 +10,7 @@ import java.io.PrintWriter;
 public class Player {
 
     private String playerName;
-    private int healthPoints, magicPoints, attackPower, defensePower, strength = 5, intelligence = 5, vitality = 5, stamina = 5, exp = 0, level = 0, levelUp = 50;
+    private int healthPoints, magicPoints, attackPower, defensePower, strength = 5, intelligence = 5, vitality = 5, stamina = 5, exp = 0, level = 0, levelUp = 10;
 
     Random roll = new Random();
     Scanner keyboard = new Scanner(System.in);
@@ -33,10 +33,10 @@ public class Player {
     public void setMP() {magicPoints = getIntelligence() * 3 + 50;}
     public int getMP() {return magicPoints;}
 
-    public void setAttkPow() {attackPower = getStrength() * 2 + 15;}
+    public void setAttkPow() {attackPower = getStrength() * 2 + 5;}
     public int getAttkPow() {return attackPower;}
 
-    public void setDefPow() {defensePower = getStamina() * 2 + 15;}
+    public void setDefPow() {defensePower = getStamina() * 2 + 5;}
     public int getDefPow() {return defensePower;}
 
     public void setStrength(int str) {strength += str;}
@@ -69,7 +69,8 @@ public class Player {
         if(exp >= levelUp) {
           ++level;
           exp -= levelUp;
-          levelUp *= 1.25;
+          levelUp = (int)(Math.pow(levelUp, 11.78/10));
+          pw.println(levelUp);
           upgrades = roll.nextInt(3) + 1;
         }
         while(upgrades > 0) {
