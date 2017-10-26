@@ -36,7 +36,7 @@ public class Player {
     public void setAttkPow() {attackPower = ((1+roll.nextInt(10))+(1+roll.nextInt(10))+(1+roll.nextInt(10)))/2+level*(getStrength()+1)-1;}
     public int getAttkPow() {return attackPower;}
 
-    public void setDefPow() {((1+roll.nextInt(10))+(1+roll.nextInt(10))+(1+roll.nextInt(10)))/2+level*(getStamina()+1)-1;}
+    public void setDefPow() {defensePower = ((1+roll.nextInt(10))+(1+roll.nextInt(10))+(1+roll.nextInt(10)))/2+level*(getStamina()+1)-1;}
     public int getDefPow() {return defensePower;}
 
     public void setStrength(int str) {strength += str;}
@@ -105,7 +105,6 @@ public class Player {
     public int getLevel() {return level;}
 
     public void setPlayerStats() {
-      this.setPlayerName();
       this.updatePlayerStats();
     }
 

@@ -20,27 +20,43 @@ public class DED {
 
     //create player
     Player playerOne = new Player();
-
+    boolean rollCheck = true;
+    playerOne.setPlayerName();
     playerOne.setPlayerStats();
-
-    boolean addXP = true;
-    while(addXP == true) {
+    while(rollCheck == true) {
       playerOne.displayPlayer();
-      pw.println("Enter XP gained:");
-      int exp = keyboard.nextInt();
-      playerOne.setExp(exp);
-      pw.println("Continue? (y/n)");
-      String answer = keyboard.next();
-      if (answer.equals("n")) {
-        addXP = false;
+      pw.println("Keep roll? (1. yes)/(2. no)");
+      int rollAgain = keyboard.nextInt();
+      switch(rollAgain) {
+        case 1:
+          rollCheck = false;
+          break;
+        case 2:
+          playerOne.setPlayerStats();
+          break;
       }
     }
 
+
+
+    // boolean addXP = true;
+    // while(addXP == true) {
+    //   pw.println("Enter XP gained:");
+    //   int exp = keyboard.nextInt();
+    //   playerOne.setExp(exp);
+    //   pw.println("Continue? (y/n)");
+    //   String answer = keyboard.next();
+    //   if (answer.equals("n")) {
+    //     addXP = false;
+    //   }
+    // }
+    // playerOne.displayPlayer();
+
     //create enemy
-    Enemy enemy = new Enemy();
-    enemy.setEnemyName();
-    enemy.setLevel(playerOne.getLevel());
-    enemy.setStats();
-    enemy.displayEnemy();
+    // Enemy enemy = new Enemy();
+    // enemy.setEnemyName();
+    // enemy.setLevel(playerOne.getLevel());
+    // enemy.setStats();
+    // enemy.displayEnemy();
   }
 }
