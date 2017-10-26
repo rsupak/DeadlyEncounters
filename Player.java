@@ -27,16 +27,16 @@ public class Player {
       return playerName;
     }
 
-    public void setHP() {healthPoints = getVitality() * 3 + 50;}
+    public void setHP() {healthPoints = ((1+roll.nextInt(10))+(1+roll.nextInt(10))+(1+roll.nextInt(10)))/2+level*(getVitality()+1)-1;}
     public int getHP() {return healthPoints;}
 
-    public void setMP() {magicPoints = getIntelligence() * 3 + 50;}
+    public void setMP() {magicPoints = ((1+roll.nextInt(10))+(1+roll.nextInt(10))+(1+roll.nextInt(10)))/2+level*(getIntelligence()+1)-1;}
     public int getMP() {return magicPoints;}
 
-    public void setAttkPow() {attackPower = getStrength() * 2 + 5;}
+    public void setAttkPow() {attackPower = ((1+roll.nextInt(10))+(1+roll.nextInt(10))+(1+roll.nextInt(10)))/2+level*(getStrength()+1)-1;}
     public int getAttkPow() {return attackPower;}
 
-    public void setDefPow() {defensePower = getStamina() * 2 + 5;}
+    public void setDefPow() {((1+roll.nextInt(10))+(1+roll.nextInt(10))+(1+roll.nextInt(10)))/2+level*(getStamina()+1)-1;}
     public int getDefPow() {return defensePower;}
 
     public void setStrength(int str) {strength += str;}
