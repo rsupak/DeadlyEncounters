@@ -89,45 +89,48 @@ public class Player {
   public void updateDef() {defensePower = getDefPow() + ((1+roll.nextInt(10))/4+level+(getStamina()+1));}
 
   public void updatePlayer() {
-    int x = level;
-    if(exp >= levelUp) {
-      exp -= levelUp;
-      levelUp = (int)(Math.floor(-0.00003 * Math.pow(level, 6) + 0.00387 * Math.pow(level, 5) - 0.17588 * Math.pow(level, 4) + 3.60646 * Math.pow(level, 3) - 18.64023 * Math.pow(level, 2) + 116.75063 * level));
-      upgrades += roll.nextInt(3) + 1;
-      level++;
-    } else {
-      levelUp = (int)(Math.floor(-0.00003 * Math.pow(level, 6) + 0.00387 * Math.pow(level, 5) - 0.17588 * Math.pow(level, 4) + 3.60646 * Math.pow(level, 3) - 18.64023 * Math.pow(level, 2) + 116.75063 * level));
-    }
-    while(upgrades > 0) {
-      pw.println("You have " + upgrades + " Stat points to allocate.");
-      pw.println("Modify your character >>");
-      pw.println("Choose a stat to update >>");
-      pw.println("(1: Vitality)\t\tVIT: " + vitality);
-      pw.println("(2: Intelligence)\tINT: " + intelligence);
-      pw.println("(3: Strength)\t\tSTR: " + strength);
-      pw.println("(4: Stamina)\t\tSTA: " + stamina);
-      System.out.print(">> ");
-      int stat = keyboard.nextInt();
-      switch(stat) {
-        case 1:
-          vitality += 1;
-          this.updateHP();
-          break;
-        case 2:
-          intelligence += 1;
-          this.updateMP();
-          break;
-        case 3:
-          strength += 1;
-          this.updateAttk();
-          break;
-        case 4:
-          stamina += 1;
-          this.updateDef();
-          break;
+    while(exp >= levelUp || level == 1) {
+      int x = level;
+      if(exp >= levelUp) {
+        exp -= levelUp;
+        levelUp = (int)(Math.floor(-0.00003 * Math.pow(level, 6) + 0.00387 * Math.pow(level, 5) - 0.17588 * Math.pow(level, 4) + 3.60646 * Math.pow(level, 3) - 18.64023 * Math.pow(level, 2) + 116.75063 * level));
+        upgrades += roll.nextInt(3) + 1;
+        level++;
+        pw.println("Congratulations, you have progressed to Level " + level + "!");
+      } else {
+        levelUp = (int)(Math.floor(-0.00003 * Math.pow(level, 6) + 0.00387 * Math.pow(level, 5) - 0.17588 * Math.pow(level, 4) + 3.60646 * Math.pow(level, 3) - 18.64023 * Math.pow(level, 2) + 116.75063 * level));
       }
-      --upgrades;
-      this.displayPlayer();
+      while(upgrades > 0) {
+        pw.println("You have " + upgrades + " Stat points to allocate.");
+        pw.println("Modify your character >>");
+        pw.println("Choose a stat to update >>");
+        pw.println("(1: Vitality)\t\tVIT: " + vitality);
+        pw.println("(2: Intelligence)\tINT: " + intelligence);
+        pw.println("(3: Strength)\t\tSTR: " + strength);
+        pw.println("(4: Stamina)\t\tSTA: " + stamina);
+        System.out.print(">> ");
+        int stat = keyboard.nextInt();
+        switch(stat) {
+          case 1:
+            vitality += 1;
+            this.updateHP();
+            break;
+          case 2:
+            intelligence += 1;
+            this.updateMP();
+            break;
+          case 3:
+            strength += 1;
+            this.updateAttk();
+            break;
+          case 4:
+            stamina += 1;
+            this.updateDef();
+            break;
+        }
+        --upgrades;
+        this.displayPlayer();
+      }
     }
   }
 
@@ -138,7 +141,7 @@ public class Player {
     pw.println("MP: " + getMP());
     pw.println("ATT: " + getAttkPow());
     pw.println("DEF: " + getDefPow());
-    pw.println("You need " + (levelUp - exp) + " to level up!");
+    // pw.println("You need " + (levelUp - exp) + " to level up!");
   }
 
 }
