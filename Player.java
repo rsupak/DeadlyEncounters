@@ -8,123 +8,137 @@ import java.util.Scanner;
 import java.io.PrintWriter;
 
 public class Player {
+  Random roll = new Random();
+  Scanner keyboard = new Scanner(System.in);
+  PrintWriter pw = new PrintWriter(System.out, true);
+  private String playerName;
+  private int healthPoints, magicPoints, attackPower, defensePower, strength = 2, intelligence = 2, vitality = 2, stamina = 2, exp, level, levelUp, upgrades = 0;
 
-    private String playerName;
-    private int healthPoints, magicPoints, attackPower, defensePower, strength = 5, intelligence = 5, vitality = 5, stamina = 5, exp = 0, level = 0, levelUp = 10;
-
-    Random roll = new Random();
-    Scanner keyboard = new Scanner(System.in);
-    PrintWriter pw = new PrintWriter(System.out, true);
-
-
-    public void setPlayerName() {
-      System.out.print("Enter your name >> ");
-      this.playerName = keyboard.next();
-      pw.println("");
-      pw.println("Welcome " + playerName + "!");
-    }
-    public String getPlayerName() {
-      return playerName;
-    }
-
-    public void setHP() {healthPoints = ((1+roll.nextInt(10))+(1+roll.nextInt(10))+(1+roll.nextInt(10)))/2+level*(getVitality()+1)-1;}
-    public int getHP() {return healthPoints;}
-
-    public void setMP() {magicPoints = ((1+roll.nextInt(10))+(1+roll.nextInt(10))+(1+roll.nextInt(10)))/2+level*(getIntelligence()+1)-1;}
-    public int getMP() {return magicPoints;}
-
-    public void setAttkPow() {attackPower = ((1+roll.nextInt(10))+(1+roll.nextInt(10))+(1+roll.nextInt(10)))/2+level*(getStrength()+1)-1;}
-    public int getAttkPow() {return attackPower;}
-
-    public void setDefPow() {defensePower = ((1+roll.nextInt(10))+(1+roll.nextInt(10))+(1+roll.nextInt(10)))/2+level*(getStamina()+1)-1;}
-    public int getDefPow() {return defensePower;}
-
-    public void setStrength(int str) {strength += str;}
-    public int getStrength() {return strength;}
-
-    public void setIntelligence(int intel) {intelligence += intel;}
-    public int getIntelligence() {return intelligence;}
-
-    public void setVitality(int vit) {vitality += vit;}
-    public int getVitality() {return vitality;}
-
-    public void setStamina(int sta) {stamina += sta;}
-    public int getStamina() {return stamina;}
-
-    public void setExp(int xp) {
-      exp += xp;
-      if(exp >= levelUp) {
-        this.setLevel();
+  //initialize Player
+  public void setPlayer() {
+    this.setPlayerName();
+    boolean rollCheck = true;
+    while(rollCheck == true) {
+      this.baseStats();
+      this.displayPlayer();
+      pw.println("Keep roll? (1. yes)/(2. no)");
+      int rollAgain = keyboard.nextInt();
+      switch(rollAgain) {
+        case 1:
+          rollCheck = false;
+          break;
+        case 2:
+          break;
       }
     }
-    public int getExp() {return exp;}
+  }
 
-    public void setLevel() {
-      int upgrades = 0;
-      if(level == 0) {
-        ++level;
-        upgrades = 10;
+  public void setPlayerName() {
+    System.out.print("Enter your name >> ");
+    this.playerName = keyboard.next();
+    pw.println("");
+    pw.println("Welcome " + playerName + "!");
+  }
+
+  public void baseStats() {
+    level = 1;
+    levelUp = 28;
+    healthPoints =
+      ((1+roll.nextInt(10))+(1+roll.nextInt(10))+(1+roll.nextInt(10)))/2+level*(getVitality()+1)-1;
+    magicPoints =
+      ((1+roll.nextInt(10))+(1+roll.nextInt(10))+(1+roll.nextInt(10)))/2+level*(getIntelligence()+1)-1;
+    attackPower =
+      ((1+roll.nextInt(10))+(1+roll.nextInt(10))+(1+roll.nextInt(10)))/2+level*(getStrength()+1)-1;
+    defensePower =
+      ((1+roll.nextInt(10))+(1+roll.nextInt(10))+(1+roll.nextInt(10)))/2+level*(getStamina()+1)-1;
+  }
+
+  //End Initialization
+
+  //Player setters
+  public void setStrength(int str) {strength += str;}
+  public void setIntelligence(int intel) {intelligence += intel;}
+  public void setVitality(int vit) {vitality += vit;}
+  public void setStamina(int sta) {stamina += sta;}
+  public void setExp(int xp) {
+    exp += xp;
+    this.updatePlayer();
+  }
+
+  //Player getters
+  public String getPlayerName() {return playerName;}
+  public int getHP() {return healthPoints;}
+  public int getMP() {return magicPoints;}
+  public int getAttkPow() {return attackPower;}
+  public int getDefPow() {return defensePower;}
+  public int getStrength() {return strength;}
+  public int getIntelligence() {return intelligence;}
+  public int getVitality() {return vitality;}
+  public int getStamina() {return stamina;}
+  public int getExp() {return exp;}
+  public int getLevel() {return level;}
+
+
+  //Player updaters
+  public void updateHP() {healthPoints = getHP() + ((1+roll.nextInt(10))/4+level+(getVitality()+1));}
+
+  public void updateMP() {magicPoints = getMP() + ((1+roll.nextInt(10))/4+level+(getIntelligence()+1));}
+
+  public void updateAttk() {attackPower = getAttkPow() + ((1+roll.nextInt(10))/4+level+(getStrength()+1));}
+
+  public void updateDef() {defensePower = getDefPow() + ((1+roll.nextInt(10))/4+level+(getStamina()+1));}
+
+  public void updatePlayer() {
+    int x = level;
+    if(exp >= levelUp) {
+      exp -= levelUp;
+      levelUp = (int)(Math.floor(-0.00003 * Math.pow(level, 6) + 0.00387 * Math.pow(level, 5) - 0.17588 * Math.pow(level, 4) + 3.60646 * Math.pow(level, 3) - 18.64023 * Math.pow(level, 2) + 116.75063 * level));
+      upgrades += roll.nextInt(3) + 1;
+      level++;
+    } else {
+      levelUp = (int)(Math.floor(-0.00003 * Math.pow(level, 6) + 0.00387 * Math.pow(level, 5) - 0.17588 * Math.pow(level, 4) + 3.60646 * Math.pow(level, 3) - 18.64023 * Math.pow(level, 2) + 116.75063 * level));
+    }
+    while(upgrades > 0) {
+      pw.println("You have " + upgrades + " Stat points to allocate.");
+      pw.println("Modify your character >>");
+      pw.println("Choose a stat to update >>");
+      pw.println("(1: Vitality)\t\tVIT: " + vitality);
+      pw.println("(2: Intelligence)\tINT: " + intelligence);
+      pw.println("(3: Strength)\t\tSTR: " + strength);
+      pw.println("(4: Stamina)\t\tSTA: " + stamina);
+      System.out.print(">> ");
+      int stat = keyboard.nextInt();
+      switch(stat) {
+        case 1:
+          vitality += 1;
+          this.updateHP();
+          break;
+        case 2:
+          intelligence += 1;
+          this.updateMP();
+          break;
+        case 3:
+          strength += 1;
+          this.updateAttk();
+          break;
+        case 4:
+          stamina += 1;
+          this.updateDef();
+          break;
       }
-      while(exp >= levelUp || upgrades > 0) {
-        if(exp >= levelUp) {
-          ++level;
-          exp -= levelUp;
-          levelUp = (int)(Math.pow(levelUp, 1.178));
-          pw.println(levelUp);
-          upgrades = roll.nextInt(3) + 1;
-        }
-        while(upgrades > 0) {
-          pw.println("You have " + upgrades + " Stat points to allocate:");
-          pw.println("Modify your character:");
-          --upgrades;
-          pw.println("Choose a stat to update:");
-          pw.println("(1: Vitality)\t\tVIT: " + vitality);
-          pw.println("(2: Intelligence)\tINT: " + intelligence);
-          pw.println("(3: Strength)\t\tSTR: " + strength);
-          pw.println("(4: Stamina)\t\tSTA: " + stamina);
-          int stat = keyboard.nextInt();
-
-          switch(stat) {
-            case 1:
-              vitality += 1;
-              break;
-            case 2:
-              intelligence += 1;
-              break;
-            case 3:
-              strength += 1;
-              break;
-            case 4:
-              stamina += 1;
-              break;
-          }
-        }
-        this.updatePlayerStats();
-      }
+      --upgrades;
+      this.displayPlayer();
     }
-    public int getLevel() {return level;}
+  }
 
-    public void setPlayerStats() {
-      this.updatePlayerStats();
-    }
-
-    public void updatePlayerStats() {
-      this.setLevel();
-      this.setHP();
-      this.setMP();
-      this.setAttkPow();
-      this.setDefPow();
-    }
-
-    public void displayPlayer() {
-      pw.println(playerName);
-      pw.println("Level: " + getLevel());
-      pw.println("HP: " + getHP());
-      pw.println("MP: " + getMP());
-      pw.println("ATT: " + getAttkPow());
-      pw.println("DEF: " + getDefPow());
-      pw.println("You need " + (levelUp - exp) + " to level up!");
-    }
-
+  public void displayPlayer() {
+    pw.println(playerName);
+    pw.println("Level: " + getLevel());
+    pw.println("HP: " + getHP());
+    pw.println("MP: " + getMP());
+    pw.println("ATT: " + getAttkPow());
+    pw.println("DEF: " + getDefPow());
+    pw.println("You need " + (levelUp - exp) + " to level up!");
+  }
 
 }
