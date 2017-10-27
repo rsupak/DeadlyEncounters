@@ -20,37 +20,22 @@ public class DED {
 
     //create player
     Player playerOne = new Player();
-    boolean rollCheck = true;
-    playerOne.setPlayerName();
-    playerOne.setPlayerStats();
-    while(rollCheck == true) {
-      playerOne.displayPlayer();
-      pw.println("Keep roll? (1. yes)/(2. no)");
-      int rollAgain = keyboard.nextInt();
-      switch(rollAgain) {
-        case 1:
-          rollCheck = false;
-          break;
-        case 2:
-          playerOne.setPlayerStats();
-          break;
+    playerOne.setPlayer();
+
+
+
+    boolean addXP = true;
+    while(addXP == true) {
+      pw.println("Enter XP gained:");
+      int exp = keyboard.nextInt();
+      playerOne.setExp(exp);
+      pw.println("Continue? (y/n)");
+      String answer = keyboard.next();
+      if (answer.equals("n")) {
+        addXP = false;
       }
     }
-
-
-
-    // boolean addXP = true;
-    // while(addXP == true) {
-    //   pw.println("Enter XP gained:");
-    //   int exp = keyboard.nextInt();
-    //   playerOne.setExp(exp);
-    //   pw.println("Continue? (y/n)");
-    //   String answer = keyboard.next();
-    //   if (answer.equals("n")) {
-    //     addXP = false;
-    //   }
-    // }
-    // playerOne.displayPlayer();
+    playerOne.displayPlayer();
 
     //create enemy
     // Enemy enemy = new Enemy();
