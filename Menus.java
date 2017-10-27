@@ -11,6 +11,7 @@ public class Menus {
     pw.println("(1: Move)");
     pw.println("(2: Item)");
     pw.println("(3: Map)");
+    pw.println("(4: Status)");
     pw.println("(0: Quit)");
     System.out.print(">> ");
   }
