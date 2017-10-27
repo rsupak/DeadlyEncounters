@@ -22,8 +22,6 @@ public class DED {
     Player playerOne = new Player();
     playerOne.setPlayer();
 
-
-
     boolean addXP = true;
     while(addXP == true) {
       pw.println("Enter XP gained:");
@@ -33,15 +31,26 @@ public class DED {
       String answer = keyboard.next();
       if (answer.equals("n")) {
         addXP = false;
+      } else {
+        pw.println("You need " + (playerOne.getLevelUp() - playerOne.getExp()) + " to level up!");
       }
     }
     playerOne.displayPlayer();
 
-    //create enemy
-    // Enemy enemy = new Enemy();
-    // enemy.setEnemyName();
-    // enemy.setLevel(playerOne.getLevel());
-    // enemy.setStats();
-    // enemy.displayEnemy();
+    // create enemy
+    boolean createEnemy = true;
+    while(createEnemy == true) {
+      Enemy enemy = new Enemy();
+      //enemy.setEnemy();
+      enemy.setEnemyName();
+      enemy.setLevel(playerOne.getLevel() * 0.875);
+      enemy.setEnemyStats();
+      enemy.displayEnemy();
+      pw.println("Roll Again?(y/n)");
+      String answer = keyboard.next();
+      if(answer.equals("n")) {
+        createEnemy = false;
+      }
+    }
   }
 }

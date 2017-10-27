@@ -26,6 +26,7 @@ public class Player {
       switch(rollAgain) {
         case 1:
           rollCheck = false;
+          pw.println("You need " + (levelUp - exp) + " to level up!");
           break;
         case 2:
           break;
@@ -62,7 +63,9 @@ public class Player {
   public void setStamina(int sta) {stamina += sta;}
   public void setExp(int xp) {
     exp += xp;
-    this.updatePlayer();
+    if(exp >= levelUp) {
+      this.updatePlayer();
+    }
   }
 
   //Player getters
@@ -77,6 +80,7 @@ public class Player {
   public int getStamina() {return stamina;}
   public int getExp() {return exp;}
   public int getLevel() {return level;}
+  public int getLevelUp() {return levelUp;}
 
 
   //Player updaters
@@ -132,6 +136,7 @@ public class Player {
         this.displayPlayer();
       }
     }
+    pw.println("You need " + (levelUp - exp) + " to level up!");
   }
 
   public void displayPlayer() {
