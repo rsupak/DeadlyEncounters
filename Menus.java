@@ -9,6 +9,8 @@ public class Menus {
   public Scanner keyboard = new Scanner(System.in);
   public Player playerOne;
   private int choice;
+  XPGenerator gen = new XPGenerator();
+
   private boolean traveling, gameRunning;
 
   public void initializeMenus(Player p) {
@@ -30,6 +32,7 @@ public class Menus {
     pw.println("(2: Item)");
     pw.println("(3: Map)");
     pw.println("(4: Status)");
+    pw.println("(5: XP Generator)");
     pw.println("(0: Quit)");
     System.out.print(">> ");
     choice = keyboard.nextInt();
@@ -43,6 +46,9 @@ public class Menus {
       case 3: break;
       case 4:
         playerOne.displayPlayer();
+        break;
+      case 5:
+        gen.generateXP(playerOne);
         break;
       case 0:
         pw.println("Sorry to see you go, traveler...");

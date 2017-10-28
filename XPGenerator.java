@@ -10,7 +10,7 @@ public class XPGenerator {
 
   public void generateXP(Player p) {
     playerOne = p;
-    playerOne.setPlayer();
+    // playerOne.setPlayer();
     boolean addXP = true;
     while(addXP == true) {
       pw.println("Enter XP gained:");
