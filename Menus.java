@@ -2,11 +2,29 @@
 //sub DEDivided.java
 
 import java.io.PrintWriter;
+import java.util.Scanner;
 
 public class Menus {
-  PrintWriter pw = new PrintWriter(System.out, true);
+  public PrintWriter pw = new PrintWriter(System.out, true);
+  public Scanner keyboard = new Scanner(System.in);
+  public Player playerOne;
+  private int choice;
+  private boolean traveling, gameRunning;
+
+  public void initializeMenus(Player p) {
+    playerOne = p;
+    // playerOne.setPlayer();
+    gameRunning = true;
+    while(gameRunning == true) {
+      traveling = true;
+      while(traveling == true) {
+        this.mainMenu();
+      }
+    }
+  }
 
   public void mainMenu() {
+    pw.println("");
     pw.println("Main Menu:");
     pw.println("(1: Move)");
     pw.println("(2: Item)");
@@ -14,6 +32,24 @@ public class Menus {
     pw.println("(4: Status)");
     pw.println("(0: Quit)");
     System.out.print(">> ");
+    choice = keyboard.nextInt();
+    switch(choice) {
+      case 1:
+        this.travelMenu();
+        break;
+      case 2:
+        this.itemMenu();
+        break;
+      case 3: break;
+      case 4:
+        playerOne.displayPlayer();
+        break;
+      case 0:
+        pw.println("Sorry to see you go, traveler...");
+        traveling = false;
+        gameRunning = false;
+        break;
+    }
   }
 
   public void travelMenu() {
@@ -23,6 +59,7 @@ public class Menus {
     pw.println("(3: South)");
     pw.println("(4: West)");
     System.out.print(">> ");
+    choice = keyboard.nextInt();
   }
 
   public void combatMenu() {
@@ -33,6 +70,7 @@ public class Menus {
     pw.println("(4: Item)");
     pw.println("(5: Flee)");
     System.out.print(">> ");
+    choice = keyboard.nextInt();
   }
 
   public void magicMenu() {
@@ -42,6 +80,7 @@ public class Menus {
     pw.println("(3: Sleep)");
     pw.println("(4: Cure)");
     System.out.print(">> ");
+    choice = keyboard.nextInt();
   }
 
   public void itemMenu() {
@@ -49,5 +88,6 @@ public class Menus {
     pw.println("(1: Health Potion)");
     pw.println("(2: Magic Potion)");
     System.out.print(">> ");
+    choice = keyboard.nextInt();
   }
 }
