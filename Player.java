@@ -39,7 +39,6 @@ public class Player {
     vitality = 10;
     intelligence = 10;
     agility = 10;
-
   }
 
   //End Initialization
@@ -66,7 +65,7 @@ public class Player {
   public void setAgility() {
     updateStatCheck = 1 + roll.nextInt(4);
     if(updateStatCheck % 4 == 0) {
-      strength += 1;
+      agility += 1;
     }
   }
   public void setExp(int xp) {
@@ -109,8 +108,7 @@ public class Player {
   }
 
   public void updatePlayer() {
-    while(exp >= levelUp || level == 1) {
-      int x = level;
+    while(exp >= levelUp) {
       if(exp >= levelUp) {
         exp -= levelUp;
         levelUp = (int)(Math.floor(-0.00003 * Math.pow(level, 6) + 0.00387 * Math.pow(level, 5) - 0.17588 * Math.pow(level, 4) + 3.60646 * Math.pow(level, 3) - 18.64023 * Math.pow(level, 2) + 116.75063 * level));
