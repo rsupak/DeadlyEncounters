@@ -21,23 +21,5 @@ public class DED {
     playerOne.setPlayer();
 
     menus.initializeMenus(playerOne, enemy);
-
-
-    // Main menu
-    // // create enemy
-    // boolean createEnemy = true;
-    // while(createEnemy == true) {
-    //   Enemy enemy = new Enemy();
-    //   //enemy.setEnemy();
-    //   enemy.setEnemyName();
-    //   enemy.setLevel(playerOne.getLevel() * 0.875);
-    //   enemy.setEnemyStats();
-    //   enemy.displayEnemy();
-    //   pw.println("Roll Again?(y/n)");
-    //   String answer = keyboard.next();
-    //   if(answer.equals("n")) {
-    //     createEnemy = false;
-    //   }
-    // }
   }
 }
