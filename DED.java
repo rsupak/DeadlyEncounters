@@ -17,28 +17,10 @@ public class DED {
 
     Player playerOne = new Player();
     Menus menus = new Menus();
-    XPGenerator gen = new XPGenerator();
-    // gen.generateXP(playerOne);
+    Enemy enemy = new Enemy();
     playerOne.setPlayer();
-    menus.initializeMenus(playerOne);
-    // //create player
-    // public Player playerOne = new Player();
 
-    //
-    // boolean addXP = true;
-    // while(addXP == true) {
-    //   pw.println("Enter XP gained:");
-    //   int exp = keyboard.nextInt();
-    //   playerOne.setExp(exp);
-    //   pw.println("Continue? (y/n)");
-    //   String answer = keyboard.next();
-    //   if (answer.equals("n")) {
-    //     addXP = false;
-    //   } else {
-    //     pw.println("You need " + (playerOne.getLevelUp() - playerOne.getExp()) + " to level up!");
-    //   }
-    // }
-    // playerOne.displayPlayer();
+    menus.initializeMenus(playerOne, enemy);
 
 
     // Main menu

@@ -8,13 +8,15 @@ public class Menus {
   public PrintWriter pw = new PrintWriter(System.out, true);
   public Scanner keyboard = new Scanner(System.in);
   public Player playerOne;
+  public Enemy enemy = new Enemy();
   private int choice;
   XPGenerator gen = new XPGenerator();
 
   private boolean traveling, gameRunning;
 
-  public void initializeMenus(Player p) {
+  public void initializeMenus(Player p, Enemy e) {
     playerOne = p;
+    enemy = e;
     // playerOne.setPlayer();
     gameRunning = true;
     while(gameRunning == true) {
@@ -33,6 +35,7 @@ public class Menus {
     pw.println("(3: Map)");
     pw.println("(4: Status)");
     pw.println("(5: XP Generator)");
+    pw.println("(6: Approach Enemy)");
     pw.println("(0: Quit)");
     System.out.print(">> ");
     choice = keyboard.nextInt();
@@ -49,6 +52,9 @@ public class Menus {
         break;
       case 5:
         gen.generateXP(playerOne);
+        break;
+      case 6:
+        enemy.setEnemy(playerOne);
         break;
       case 0:
         pw.println("Sorry to see you go, traveler...");

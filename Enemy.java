@@ -17,11 +17,19 @@ public class Enemy {
   Random roll = new Random();
   Scanner keyboard = new Scanner(System.in);
   PrintWriter pw = new PrintWriter(System.out, true);
-
+  public Player playerOne;
   //initialize EnemySprite
   // public void setEnemy() {
   //   this.setEnemyStats();
   // }
+
+  public void setEnemy(Player p) {
+    playerOne = p;
+    this.setEnemyName();
+    this.setLevel(playerOne.getLevel());
+    this.setEnemyStats();
+    this.displayEnemy();
+  }
 
   public void baseStats() {
     switch(enemyName) {
@@ -64,8 +72,11 @@ public class Enemy {
     enemyName = enemyList.get(1 + (int)(Math.random() * 6));
   }
 
-  public void setLevel(double lvl) {
-    level = (int)lvl;
+  public void setLevel(int lvl) {
+    level = lvl;
+    if(level > 1) {
+      level = level * 7/8;
+    }
   }
 
   public void setEnemyStats() {
