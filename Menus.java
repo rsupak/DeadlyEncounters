@@ -58,7 +58,7 @@ public class Menus {
         gen.generateXP();
         break;
       case 6:
-        enemy.setEnemy(playerOne);
+        enemy.setEnemy();
         break;
       case 0:
         pw.println("Sorry to see you go, traveler...");

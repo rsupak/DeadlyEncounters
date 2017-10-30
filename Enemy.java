@@ -19,12 +19,11 @@ public class Enemy {
   PrintWriter pw = new PrintWriter(System.out, true);
   public Player playerOne;
   //initialize EnemySprite
-  // public void setEnemy() {
-  //   this.setEnemyStats();
-  // }
-
-  public void setEnemy(Player p) {
+  public Enemy(Player p) {
     playerOne = p;
+  }
+
+  public void setEnemy() {
     this.setEnemyName();
     this.setLevel(playerOne.getLevel());
     this.setEnemyStats();

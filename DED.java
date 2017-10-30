@@ -10,10 +10,11 @@ public class DED {
     //set imported methods (Scanner, Random, PrintWriter)
 
     Player playerOne = new Player();
-    Enemy enemy = new Enemy();
+    Enemy enemy = new Enemy(playerOne);
     XPGenerator gen = new XPGenerator(playerOne);
     Menus menus = new Menus(playerOne, enemy, gen);
     playerOne.setPlayer();
+
     menus.gameLoop();
   }
 }
