@@ -14,10 +14,31 @@ public class Player {
   private String playerName;
   private int healthPoints, magicPoints, attackPower, defensePower, strength, intelligence, vitality, agility, exp, level, levelUp, updateStatCheck;
 
+  public Player() {
+    this("Nemo", 1, 40, 15, 10, 10, 10, 10, 10, 10, 28);
+  }
+
+  public Player(String name) {
+    this(name, 1, 40, 15, 10, 10, 10, 10, 10, 10, 28);
+  }
+
+  public Player(String name, int lvl, int hp, int mp, int att, int def, int str, int intel, int vit, int agl, int ding) {
+    this.playerName = name;
+    this.level = lvl;
+    this.healthPoints = hp;
+    this.magicPoints = mp;
+    this.attackPower = att;
+    this.defensePower = def;
+    this.strength = str;
+    this.vitality = vit;
+    this.intelligence = intel;
+    this.agility = agl;
+    this.levelUp = ding;
+  }
+
   //initialize Player
   public void setPlayer() {
     this.setPlayerName();
-    this.baseStats();
     this.displayPlayer();
   }
 
@@ -26,19 +47,6 @@ public class Player {
     this.playerName = keyboard.next();
     pw.println("");
     pw.println("Welcome " + playerName + "!");
-  }
-
-  public void baseStats() {
-    level = 1;
-    healthPoints = 40;
-    magicPoints = 15;
-    attackPower = 10;
-    defensePower = 10;
-    levelUp = 28;
-    strength = 10;
-    vitality = 10;
-    intelligence = 10;
-    agility = 10;
   }
 
   //End Initialization
