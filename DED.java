@@ -3,23 +3,17 @@
 //Written by Richard Supak
 //Written on 24October2017
 
-import java.util.Scanner;
-import java.io.PrintWriter;
-import java.util.Random;
 
 public class DED {
   public static void main(String[] args) {
 
     //set imported methods (Scanner, Random, PrintWriter)
-    Scanner keyboard = new Scanner(System.in);
-    PrintWriter pw = new PrintWriter(System.out, true);
-    Random roll = new Random();
 
     Player playerOne = new Player();
-    Menus menus = new Menus();
     Enemy enemy = new Enemy();
+    XPGenerator gen = new XPGenerator(playerOne);
+    Menus menus = new Menus(playerOne, enemy, gen);
     playerOne.setPlayer();
-
-    menus.initializeMenus(playerOne, enemy);
+    menus.gameLoop();
   }
 }

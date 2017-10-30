@@ -8,9 +8,11 @@ public class XPGenerator {
   public Scanner keyboard = new Scanner(System.in);
   public Player playerOne;
 
-  public void generateXP(Player p) {
+  public XPGenerator(Player p) {
     playerOne = p;
-    // playerOne.setPlayer();
+  }
+
+  public void generateXP() {
     boolean addXP = true;
     while(addXP == true) {
       pw.println("Enter XP gained:");
@@ -20,8 +22,6 @@ public class XPGenerator {
       String answer = keyboard.next();
       if (answer.equals("n")) {
         addXP = false;
-      } else {
-        pw.println("You need " + (playerOne.getLevelUp() - playerOne.getExp()) + " to level up!");
       }
     }
   }

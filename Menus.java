@@ -8,16 +8,19 @@ public class Menus {
   public PrintWriter pw = new PrintWriter(System.out, true);
   public Scanner keyboard = new Scanner(System.in);
   public Player playerOne;
-  public Enemy enemy = new Enemy();
+  public Enemy enemy;
   private int choice;
-  XPGenerator gen = new XPGenerator();
+  private XPGenerator gen;
 
   private boolean traveling, gameRunning;
 
-  public void initializeMenus(Player p, Enemy e) {
+  public Menus(Player p, Enemy e, XPGenerator g) {
     playerOne = p;
     enemy = e;
-    // playerOne.setPlayer();
+    gen = g;
+  }
+
+  public void gameLoop() {
     gameRunning = true;
     while(gameRunning == true) {
       traveling = true;
@@ -49,9 +52,10 @@ public class Menus {
       case 3: break;
       case 4:
         playerOne.displayPlayer();
+        pw.println("You need " + (playerOne.toNextLevel()) + " to level up!");
         break;
       case 5:
-        gen.generateXP(playerOne);
+        gen.generateXP();
         break;
       case 6:
         enemy.setEnemy(playerOne);

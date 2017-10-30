@@ -88,6 +88,7 @@ public class Player {
   public int getExp() {return exp;}
   public int getLevel() {return level;}
   public int getLevelUp() {return levelUp;}
+  public int toNextLevel() {return getLevelUp() - getExp();}
 
 
   //Player updaters
