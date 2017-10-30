@@ -11,23 +11,23 @@ public class Menus {
   public Enemy enemy;
   private int choice;
   private XPGenerator gen;
+  private TextFields gameText;
 
-  private boolean traveling, gameRunning;
+  private boolean traveling = true, gameRunning = true;
 
-  public Menus(Player p, Enemy e, XPGenerator g) {
+  public Menus(Player p, Enemy e, XPGenerator g, TextFields t) {
     playerOne = p;
     enemy = e;
     gen = g;
+    gameText = t;
   }
 
-  public void gameLoop() {
-    gameRunning = true;
-    while(gameRunning == true) {
-      traveling = true;
-      while(traveling == true) {
-        this.mainMenu();
-      }
-    }
+  //game running menu check for (quit)
+  public boolean getTraveling() {
+    return traveling;
+  }
+  public boolean getGameRunning() {
+    return gameRunning;
   }
 
   public void mainMenu() {

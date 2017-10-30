@@ -6,6 +6,7 @@
 import java.util.Random;
 import java.util.Scanner;
 import java.io.PrintWriter;
+import java.util.Map;
 import java.util.HashMap;
 
 public class Enemy {
@@ -18,6 +19,7 @@ public class Enemy {
   Scanner keyboard = new Scanner(System.in);
   PrintWriter pw = new PrintWriter(System.out, true);
   public Player playerOne;
+
   //initialize EnemySprite
   public Enemy(Player p) {
     playerOne = p;
@@ -61,7 +63,7 @@ public class Enemy {
 
   //Enemy setters
   public void setEnemyName() {
-    HashMap<Integer, String> enemyList = new HashMap<>();
+    Map<Integer, String> enemyList = new HashMap<>();
       enemyList.put(1, "Slime");
       enemyList.put(2, "Skeleton");
       enemyList.put(3, "Imp");

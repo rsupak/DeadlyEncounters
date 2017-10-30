@@ -8,7 +8,7 @@ public class TextFields {
 
   public void intro() {
     pw.println("Welcome to Deadly Encounter!");
-    pw.println("Please enter your name >>");
+    System.out.print("Please enter your name >> ");
   }
 
   public void gameStart() {
@@ -27,5 +27,5 @@ public class TextFields {
     pw.println("");
   }
 
-  
+
 }

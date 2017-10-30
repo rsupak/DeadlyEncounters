@@ -39,7 +39,7 @@ public class Player {
   //initialize Player
   public void setPlayer() {
     this.setPlayerName();
-    this.displayPlayer();
+    this.displayPlayer(); //will comment this out or remove at final build
   }
 
   public void setPlayerName() {
