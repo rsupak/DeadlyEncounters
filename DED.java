@@ -5,16 +5,18 @@
 
 
 public class DED {
+  public GameGenerator game;
+
+  public DED () {
+    // startUI();
+    game = new GameGenerator();
+  }
+
+  // public void startUI() {
+  //   game = new GameGenerator();
+  // }
+
   public static void main(String[] args) {
-
-    //set imported methods (Scanner, Random, PrintWriter)
-
-    Player playerOne = new Player();
-    Enemy enemy = new Enemy(playerOne);
-    XPGenerator gen = new XPGenerator(playerOne);
-    Menus menus = new Menus(playerOne, enemy, gen);
-    playerOne.setPlayer();
-
-    menus.gameLoop();
+    DED gamestart = new DED();
   }
 }
